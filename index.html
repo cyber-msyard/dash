@@ -13,45 +13,46 @@
             padding: 0;
             background-color: #f0f2f5;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Header styling */
-        header {
-            background: linear-gradient(90deg, #1e272e, #2d3436);
-            color: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            position: relative; /* For positioning the content below */
-        }
+/* Header styling */
+header {
+    background: linear-gradient(90deg, #1e272e, #2d3436);
+    color: #fff;
+    padding: 30px 20px; /* Increased padding */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: left;
+}
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto; /* Center align the content within the header */
+    padding: 0 20px; /* Added padding to the left and right */
+}
 
-        .title {
-            font-size: 2.5rem;
-            margin: 0;
-            font-weight: 700;
-        }
+.title {
+    font-size: 1.8rem; /* Reduced font size */
+    margin: 0;
+    font-weight: 700;
+}
 
-        .greeting {
-            font-size: 1.1rem;
-            margin-top: 10px;
-            text-align: left;
-        }
+.greeting {
+    font-size: 1rem;
+    margin-top: 10px;
+}
 
         /* Main container */
         .container {
             max-width: 1200px;
-            margin: auto;
+            width: 100%;
+            margin: 20px auto;
             padding: 20px;
             overflow: hidden;
-            padding-bottom: 60px; /* Space for the fixed taskbar */
         }
 
         /* Widget, balance, and section styling */
@@ -96,7 +97,6 @@
             box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             box-sizing: border-box;
-            flex-wrap: nowrap; /* Prevent wrapping */
         }
 
         .button-container .button {
@@ -243,6 +243,53 @@
             100% { transform: rotate(360deg); }
         }
 
+/* Transaction history styling */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.history-table th, .history-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.history-table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: 700;
+}
+
+.history-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.history-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.history-table td {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.history-table td:first-child {
+    font-weight: 700;
+}
+
+.history-table td:last-child {
+    color: #2ecc71; /* Use a green color for statuses */
+}
+
+.history-table td:nth-child(3) {
+    text-align: right; /* Right-align the amount column */
+}
+
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .button-container {
@@ -258,7 +305,7 @@
 
         @media (max-width: 480px) {
             .title {
-                font-size: 2rem;
+                font-size: 1.6rem; /* Further reduced font size */
             }
 
             .balance p {
@@ -284,176 +331,166 @@
         <!-- Balance Display -->
         <div class="balance">
             <h2>Current Balance</h2>
-            <p>$1,250.00</p>
+            <p>$1,234.56</p>
         </div>
 
-        <!-- Litecoin Live Data Chart -->
+        <!-- Widget Sections -->
         <div class="widget">
-            <h2>Price Chart</h2>
+            <h2>Litecoin Chart</h2>
             <div class="chart-container">
                 <canvas id="ltc-chart"></canvas>
             </div>
         </div>
 
-        <!-- Action Forms -->
-        <div class="section" id="deposit-section" style="display: none;">
-            <h2>Deposit Funds</h2>
-            <form id="deposit-form">
-                <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <div class="input-container">
-                        <span class="currency-symbol">$</span>
-                        <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
-                    </div>
-                </div>
-                <button type="submit">Deposit</button>
-            </form>
-        </div>
-
-        <div class="section" id="withdraw-section" style="display: none;">
-            <h2>Withdraw Funds</h2>
-            <form id="withdraw-form">
-                <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <div class="input-container">
-                        <span class="currency-symbol">$</span>
-                        <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
-                    </div>
-                </div>
-                <button type="submit">Withdraw</button>
-            </form>
-        </div>
-
-        <div class="section" id="trade-section" style="display: none;">
-            <h2>Trade Litecoin</h2>
-            <form id="trade-form">
-                <div class="form-group">
-                    <label for="trade-amount">Amount</label>
-                    <div class="input-container">
-                        <span class="currency-symbol">$</span>
-                        <input type="number" id="trade-amount" name="trade-amount" placeholder="Enter amount" required>
-                    </div>
-                </div>
-                <button type="submit">Trade</button>
-            </form>
-        </div>
-
-        <div class="section" id="history-section" style="display: none;">
+        <!-- Transaction Histories -->
+        <div id="history" class="section">
             <h2>Transaction History</h2>
-            <!-- History content goes here -->
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Transaction history rows will be populated here by JavaScript -->
+                </tbody>
+            </table>
         </div>
     </div>
 
+    <!-- Bottom Button Container -->
     <div class="button-container">
-        <button class="button" id="deposit-button">
+        <button class="button" id="deposit-btn">
             <i class="fas fa-plus"></i>
             <span>Deposit</span>
         </button>
-        <button class="button" id="withdraw-button">
+        <button class="button" id="withdraw-btn">
             <i class="fas fa-minus"></i>
             <span>Withdraw</span>
         </button>
-        <button class="button" id="trade-button">
+        <button class="button" id="trade-btn">
             <i class="fas fa-exchange-alt"></i>
             <span>Trade</span>
         </button>
-        <button class="button" id="history-button">
-            <i class="fas fa-history"></i>
-            <span>History</span>
+        <button class="button" id="more-btn">
+            <i class="fas fa-ellipsis-h"></i>
+            <span>More</span>
         </button>
     </div>
 
+    <!-- Spinner -->
     <div class="spinner" id="spinner"></div>
 
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Greeting based on time
+        document.addEventListener('DOMContentLoaded', () => {
+            const depositBtn = document.getElementById('deposit-btn');
+            const withdrawBtn = document.getElementById('withdraw-btn');
+            const tradeBtn = document.getElementById('trade-btn');
+            const moreBtn = document.getElementById('more-btn');
+            const spinner = document.getElementById('spinner');
+            const historyTableBody = document.querySelector('#history tbody');
             const greetingElement = document.getElementById('greeting');
-            const hours = new Date().getHours();
-            let greeting = 'Good day!';
-            if (hours < 12) greeting = 'Good morning!';
-            else if (hours < 18) greeting = 'Good afternoon!';
-            else greeting = 'Good evening!';
-            greetingElement.textContent = greeting;
 
-            // Button functionality
-            const depositButton = document.getElementById('deposit-button');
-            const withdrawButton = document.getElementById('withdraw-button');
-            const tradeButton = document.getElementById('trade-button');
-            const historyButton = document.getElementById('history-button');
-            
-            const sections = {
-                deposit: document.getElementById('deposit-section'),
-                withdraw: document.getElementById('withdraw-section'),
-                trade: document.getElementById('trade-section'),
-                history: document.getElementById('history-section')
-            };
-
-            function showSection(section) {
-                for (const key in sections) {
-                    sections[key].style.display = key === section ? 'block' : 'none';
-                }
+            function showSpinner() {
+                spinner.style.display = 'block';
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                }, 2000);
             }
 
-            depositButton.addEventListener('click', () => {
-                showSection('deposit');
-                setActiveButton('deposit');
-            });
-
-            withdrawButton.addEventListener('click', () => {
-                showSection('withdraw');
-                setActiveButton('withdraw');
-            });
-
-            tradeButton.addEventListener('click', () => {
-                showSection('trade');
-                setActiveButton('trade');
-            });
-
-            historyButton.addEventListener('click', () => {
-                showSection('history');
-                setActiveButton('history');
-            });
-
-            function setActiveButton(active) {
-                const buttons = document.querySelectorAll('.button-container .button');
-                buttons.forEach(button => {
-                    button.classList.toggle('active', button.id.includes(active));
+            function showSection(sectionId) {
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
                 });
+                document.getElementById(sectionId).style.display = 'block';
             }
 
-            // Example chart initialization (replace with actual chart code)
+            depositBtn.addEventListener('click', () => {
+                showSpinner();
+                setTimeout(() => {
+                    window.location.href = 'http://deposit.com';
+                }, 2000);
+            });
+
+            withdrawBtn.addEventListener('click', () => {
+                showSpinner();
+                setTimeout(() => {
+                    window.location.href = 'http://withdraw.com';
+                }, 2000);
+            });
+
+            tradeBtn.addEventListener('click', () => {
+                showSpinner();
+                setTimeout(() => {
+                    window.location.href = 'error.html';
+                }, 2000);
+            });
+
+            moreBtn.addEventListener('click', () => {
+                showSpinner();
+                setTimeout(() => {
+                    window.location.href = 'http://more.com';
+                }, 2000);
+            });
+
+            // Populate history table
+            const today = new Date();
+            for (let i = 0; i < 50; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() - i);
+                const dateString = date.toISOString().split('T')[0];
+                const types = ['Deposit', 'Withdraw', 'Trade'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                const amount = (Math.random() * 100 + 1).toFixed(2);
+                const status = 'Completed';
+
+                const row = `<tr>
+                    <td>${dateString}</td>
+                    <td>${type}</td>
+                    <td>$${amount}</td>
+                    <td>${status}</td>
+                </tr>`;
+                historyTableBody.innerHTML += row;
+            }
+
+            // Chart.js example
             const ctx = document.getElementById('ltc-chart').getContext('2d');
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
                     datasets: [{
                         label: 'Litecoin Price',
-                        data: [50, 60, 55, 70, 65],
-                        borderColor: '#3498db',
-                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                        fill: true
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
                     }]
                 },
                 options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: true },
-                        tooltip: { enabled: true }
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
             });
 
-            // Simulate loading
-            function showSpinner(show) {
-                document.getElementById('spinner').style.display = show ? 'block' : 'none';
+            // Update greeting based on time
+            function getGreeting() {
+                const hour = new Date().getHours();
+                if (hour < 12) return 'Good morning';
+                if (hour < 18) return 'Good afternoon';
+                return 'Good evening';
             }
 
-            showSpinner(true);
-            setTimeout(() => showSpinner(false), 1000); // Hide spinner after 1 second
+            greetingElement.textContent = `${getGreeting()}, User!`;
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
