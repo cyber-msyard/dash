@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beneficiary Removed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .icon {
+            font-size: 4rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: 0;
+            color: #555;
+        }
+
+        button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #00b894;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #009e7f;
+            transform: translateY(-2px);
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.3rem rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h1>No Beneficiary Found</h1>
+        <p>The recent beneficiary account has been removed because you logged in from a different region.</p>
+        <p>Please add a new beneficiary to continue with your transactions.</p>
+        <button onclick="location.href='add-beneficiary.html'">Add New Beneficiary</button>
+    </div>
+</body>
+</html>
